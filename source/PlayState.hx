@@ -2384,16 +2384,17 @@ class PlayState extends MusicBeatState
 						newNote.changeNoteDirection(noteID); // Change the direction
 						//unspawnNotes[index] = newNote; // Replace the note
 
-if(validNotes[noteID] == false) {
-    trace("full array", newNote.noteType);
-}
+						if(validNotes[noteID] == false) {
+							trace("full array", newNote.noteType);
+						}
 
-if(validNotes[noteID] == false) {
-for(note in groupedNotes) {
-    trace(note.noteData, note.noteType, note.isSustainNote, note.strumTime);
+						// whoever wrote this line of code, fuck you, I ain't having shit formatting like that
+						if(validNotes[noteID] == false) {
+							for(note in groupedNotes) {
+								trace(note.noteData, note.noteType, note.isSustainNote, note.strumTime);
 
-}
-}
+							}
+						}
 					}
 				}
 
