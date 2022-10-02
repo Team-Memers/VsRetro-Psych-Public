@@ -1,6 +1,5 @@
 package;
 
-import sys.FileSystem;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxCamera;
@@ -15,7 +14,6 @@ import flixel.tweens.FlxEase;
 import flixel.util.FlxTimer;
 import flixel.FlxBasic;
 
-import sys.io.File;
 import flixel.graphics.FlxGraphic;
 import openfl.display.BitmapData;
 import flash.media.Sound;
