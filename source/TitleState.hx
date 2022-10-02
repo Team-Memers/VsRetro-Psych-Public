@@ -92,7 +92,7 @@ class TitleState extends MusicBeatState
 
 		trace("Hello, Mortals");
 
-		var customUpdateScreen = FileSystem.exists('updateScreen.hscript');
+		var customUpdateScreen = Assets.exists('updateScreen.hscript');
 
 		//#if CHECK_FOR_UPDATES
 		if(!closedState || customUpdateScreen) {
@@ -120,54 +120,7 @@ class TitleState extends MusicBeatState
 			}
 
 			OutdatedState.initHaxeModule();
-			/*#if LOCAL_UPDATE_FILES
-			var str:String = File.getContent('updateScreen.hscript');
-			if(str == null) str = 'version = ' + MainMenuState.retroVer + ';';
-			try {
-				OutdatedState.hscript.execute(str);
-			} catch(e:Dynamic) {
-				trace('error parsing: ' + e);
-			}
-			updateVersion = OutdatedState.hscript.variables.get('version');
-			if(updateVersion == null)
-				updateVersion = MainMenuState.retroVer;
-
-			trace('version on file: ' + updateVersion + ', your version: ' + MainMenuState.retroVer);
-			if(MainMenuState.retroVer != updateVersion)
-			{
-				trace('updateScreen.hscript not found!');
-				mustUpdate = true;
-				OutdatedState.leftState = false;
-			}
-			#else
-			trace('checking for update');
-			var http = new haxe.Http("https://raw.githubusercontent.com/TheRetroSpecter/VsRetro-Internet-Stuff/main/updateScreen.hscript");
-
-			http.onData = function (data:String)
-			{
-				try {
-					OutdatedState.hscript.execute(data);
-				} catch(e:Dynamic) {
-					trace('error parsing: ' + e);
-				}
-				updateVersion = OutdatedState.hscript.variables.get('version');
-
-				var curVersion:String = MainMenuState.retroVer.trim();
-				trace('version online: ' + updateVersion + ', your version: ' + curVersion);
-				if(updateVersion != curVersion) {
-					trace('versions arent matching!');
-					mustUpdate = true;
-				}
-			}
-
-			http.onError = function (error) {
-				trace('error: $error');
-			}
-
-			http.request();
-			#end*/
 		}
-		//#end
 
 		//FlxG.game.focusLostFramerate = 60;
 		//FlxG.sound.muteKeys = muteKeys;
@@ -204,11 +157,7 @@ class TitleState extends MusicBeatState
 		}
 
 		FlxG.mouse.visible = false;
-		#if FREEPLAY
-		MusicBeatState.switchState(new FreeplayState());
-		#elseif CHARTING
-		MusicBeatState.switchState(new ChartingState());
-		#else
+
 		if(FlxG.save.data.flashing == null && !FlashingState.leftState) {
 			FlxTransitionableState.skipNextTransIn = true;
 			FlxTransitionableState.skipNextTransOut = true;
@@ -229,7 +178,6 @@ class TitleState extends MusicBeatState
 				startIntro();
 			});
 		}
-		#end
 
 		#if debug
 		FlxG.console.registerClass(Paths);
@@ -591,12 +539,7 @@ class TitleState extends MusicBeatState
 
 				new FlxTimer().start(1, function(tmr:FlxTimer)
 				{
-					if (mustUpdate) {
-						MusicBeatState.switchState(new OutdatedState());
-					} else {
-						MusicBeatState.switchState(new MainMenuState());
-						OutdatedState.hscript = null;
-					}
+					MusicBeatState.switchState(new MainMenuState());
 					closedState = true;
 				});
 				// FlxG.sound.play(Paths.music('titleShoot'), 0.7);

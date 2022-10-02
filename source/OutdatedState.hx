@@ -19,6 +19,7 @@ import openfl.display.BitmapData;
 import flash.media.Sound;
 import lime.media.AudioBuffer;
 import haxe.io.Bytes;
+import openfl.utils.Assets;
 
 import hscript.Parser;
 import hscript.Interp;
@@ -42,10 +43,10 @@ class OutdatedState extends MusicBeatState
 
 		OutdatedState.initHaxeModule();
 
-		customUpdateScreen = FileSystem.exists('updateScreen.hscript');
+		customUpdateScreen = Assets.exists('updateScreen.hscript');
 
 		if(customUpdateScreen) {
-			var str:String = File.getContent('updateScreen.hscript');
+			var str:String = Assets.getText('updateScreen.hscript');
 			if(str == null) str = 'version = ' + MainMenuState.retroVer + ';';
 			try {
 				OutdatedState.hscript.execute(str);
@@ -149,7 +150,7 @@ Thank you for playing!\n
 				case 'sound':
 					gottenAssets.set(filename, Sound.fromFile(filename));
 				case 'text':
-					gottenAssets.set(filename, File.getContent(filename));
+					gottenAssets.set(filename, Assets.getText(filename));
 			}
 			//#end
 			trace('error: $error');
