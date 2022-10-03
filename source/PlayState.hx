@@ -5702,8 +5702,10 @@ class PlayState extends MusicBeatState
 			poisonIcon.alpha = 0.00001;
 			poisonTxt.alpha = 0.00001;
 		}
-		add(poisonIcon);
-		add(poisonTxt);
+		if (ClientPrefs.mechanics) {
+			add(poisonIcon);
+			add(poisonTxt);
+		}
 	}
 
 	public function updateWrathBar(e:Float) {
